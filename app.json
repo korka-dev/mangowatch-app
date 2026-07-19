@@ -1,0 +1,58 @@
+{
+  "expo": {
+    "name": "MangoWatch",
+    "slug": "mangowatch",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "MangoWatch a besoin de la camera pour photographier vos feuilles et fruits de manguier.",
+        "NSPhotoLibraryUsageDescription": "MangoWatch a besoin d'acceder a vos photos pour analyser une image existante.",
+        "NSLocationWhenInUseUsageDescription": "MangoWatch utilise votre position pour localiser vos parcelles."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#F6FBF4",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "MangoWatch a besoin de la camera pour photographier vos manguiers."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "MangoWatch utilise votre position pour localiser vos parcelles."
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 220,
+          "resizeMode": "contain",
+          "backgroundColor": "#F6FBF4"
+        }
+      ]
+    ]
+  }
+}
