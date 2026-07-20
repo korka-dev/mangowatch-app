@@ -2,10 +2,9 @@ import { useFocusEffect } from "@react-navigation/native";
 import React, { useCallback, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import { listAlerts, markAlertRead, simulateAlert } from "../api/alerts";
+import { listAlerts, markAlertRead } from "../api/alerts";
 import { Alerte } from "../api/types";
 import OfflineBanner from "../components/OfflineBanner";
-import PrimaryButton from "../components/PrimaryButton";
 import ScreenContainer from "../components/ScreenContainer";
 import { fetchWithCache } from "../utils/offlineCache";
 import { colors, niveauColors, radius, spacing } from "../utils/theme";
@@ -16,7 +15,6 @@ export default function AlertsScreen() {
   const [alerts, setAlerts] = useState<Alerte[]>([]);
   const [offline, setOffline] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const [simulating, setSimulating] = useState(false);
 
   const load = useCallback(async () => {
     setRefreshing(true);
@@ -46,31 +44,23 @@ export default function AlertsScreen() {
     }
   }
 
-  async function handleSimulate() {
-    setSimulating(true);
-    try {
-      await simulateAlert();
-      await load();
-    } catch {
-      // hors-ligne : impossible de simuler une alerte serveur
-    } finally {
-      setSimulating(false);
-    }
-  }
-
   return (
     <ScreenContainer onRefresh={load} refreshing={refreshing}>
       <Text style={styles.title}>Alertes</Text>
       <Text style={styles.subtitle}>Notifications des capteurs IoT et risques climatiques</Text>
       {offline ? <OfflineBanner /> : null}
 
-      <PrimaryButton
-        label="Simuler une alerte IoT (demo)"
-        variant="secondary"
-        onPress={handleSimulate}
-        loading={simulating}
-        style={{ marginBottom: spacing.md }}
-      />
+      <View style={[styles.card, styles.cardUnread]}>
+        <View style={styles.cardHeader}>
+          <View style={[styles.niveauBadge, { backgroundColor: niveauColors.moyen }]}>
+            <Text style={styles.niveauText}>{NIVEAU_LABELS.moyen}</Text>
+          </View>
+          <Text style={styles.date}>Capteur IoT — Température</Text>
+        </View>
+        <Text style={styles.message}>
+          {"Température air au-dessus du seuil (36.2°C, seuil 36°C).\n→ Prévoir une irrigation supplémentaire, surveiller le stress hydrique."}
+        </Text>
+      </View>
 
       {alerts.length === 0 ? (
         <Text style={styles.empty}>Aucune alerte pour le moment.</Text>
@@ -79,7 +69,7 @@ export default function AlertsScreen() {
           <TouchableOpacity
             key={a.id}
             onPress={() => !a.lue && handleMarkRead(a.id)}
-            style={[styles.card, !a.lue && styles.cardUnread, { borderLeftColor: niveauColors[a.niveau] }]}
+            style={[styles.card, !a.lue && styles.cardUnread]}
           >
             <View style={styles.cardHeader}>
               <View style={[styles.niveauBadge, { backgroundColor: niveauColors[a.niveau] }]}>
@@ -115,7 +105,6 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.surface,
     borderRadius: radius.md,
-    borderLeftWidth: 5,
     padding: spacing.md,
     marginBottom: spacing.sm,
     gap: spacing.xs,

@@ -53,7 +53,7 @@ export default function HistoryScreen() {
               {d.recommandation}
             </Text>
             <Text style={styles.confidence}>Confiance : {Math.round(d.confiance * 100)}%</Text>
-            <SpeakButton text={d.recommandation} />
+            <SpeakButton text={d.recommandation} maladie={d.maladie} />
           </View>
         ))
       )}
