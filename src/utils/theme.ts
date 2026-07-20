@@ -26,26 +26,25 @@ export const radius = {
   pill: 999,
 };
 
-// Classes du modele TFLite. "sain" est confirme ; les autres sont des
-// placeholders (classe_1..classe_6) en attendant les vrais noms/couleurs.
+// Classes reelles du modele (MobileNetV3-Large + LR-ASPP, 7 classes).
 export const maladieColors: Record<string, string> = {
-  sain: "#2F8F3F",
-  classe_1: "#D64545",
-  classe_2: "#B5651D",
-  classe_3: "#4A4A4A",
-  classe_4: "#8E44AD",
-  classe_5: "#2980B9",
-  classe_6: "#D68910",
+  background: "#5C6B5E",
+  Healthy: "#2F8F3F",
+  Anthracnose: "#D64545",
+  "Bacterial Canker": "#B5651D",
+  Lasiodiplodia: "#8E44AD",
+  Lichens: "#2980B9",
+  Pestalotia: "#D68910",
 };
 
 export const maladieLabels: Record<string, string> = {
-  sain: "Sain",
-  classe_1: "Classe 1",
-  classe_2: "Classe 2",
-  classe_3: "Classe 3",
-  classe_4: "Classe 4",
-  classe_5: "Classe 5",
-  classe_6: "Classe 6",
+  background: "Fond",
+  Healthy: "Saine",
+  Anthracnose: "Anthracnose",
+  "Bacterial Canker": "Chancre bacterien",
+  Lasiodiplodia: "Lasiodiplodia",
+  Lichens: "Lichens",
+  Pestalotia: "Pestalotiose",
 };
 
 export const DEFAULT_MALADIE_COLOR = "#5C6B5E";

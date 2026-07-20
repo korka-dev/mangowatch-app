@@ -7,6 +7,7 @@ import { Diagnostic } from "../api/types";
 import DiseaseBadge from "../components/DiseaseBadge";
 import OfflineBanner from "../components/OfflineBanner";
 import ScreenContainer from "../components/ScreenContainer";
+import SpeakButton from "../components/SpeakButton";
 import { fetchWithCache } from "../utils/offlineCache";
 import { colors, radius, spacing } from "../utils/theme";
 
@@ -52,6 +53,7 @@ export default function HistoryScreen() {
               {d.recommandation}
             </Text>
             <Text style={styles.confidence}>Confiance : {Math.round(d.confiance * 100)}%</Text>
+            <SpeakButton text={d.recommandation} />
           </View>
         ))
       )}

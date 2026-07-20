@@ -15,6 +15,7 @@ import MangoLogo from "../components/MangoLogo";
 import OfflineBanner from "../components/OfflineBanner";
 import PrimaryButton from "../components/PrimaryButton";
 import ScreenContainer from "../components/ScreenContainer";
+import SpeakButton from "../components/SpeakButton";
 import { useAuth } from "../context/AuthContext";
 import { AppStackParamList } from "../navigation/AppStack";
 import { fetchWithCache } from "../utils/offlineCache";
@@ -210,6 +211,7 @@ export default function HomeScreen() {
           <DiseaseBadge maladie={result.maladie} />
           <Text style={styles.confidence}>Confiance : {Math.round(result.confiance * 100)}%</Text>
           <Text style={styles.recommendation}>{result.recommandation}</Text>
+          <SpeakButton text={result.recommandation} />
           <PrimaryButton label="Nouvelle analyse" onPress={reset} style={{ marginTop: spacing.md }} />
         </View>
       )}
